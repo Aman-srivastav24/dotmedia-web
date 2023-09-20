@@ -1,8 +1,17 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
 import logo from '../../assets/dotmediab.png';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import axios from'axios';
 function SignUp() {
+    const fetchdata = async ()=>{
+       const response = await axios.get("http://localhost:3000");
+        console.log(response);
+    }
+    useEffect(()=>{
+ fetchdata()
+    },[])
     return (
+        
         <div className='flex flex-col justify-center items-center w-screen h-screen bg-gradient-to-r from-purple-400 to-red-800'>
             <div className='flex flex-col gap-3 justify-center items-center md:w-[400px] md:h-[500px] w-[260px] h-[450px] bg-gray-900 rounded-lg shadow-lg shadow-green-700/40 '>
                 <div className='flex flex-col items-center mb-8 gap-4'>
