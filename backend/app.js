@@ -3,7 +3,8 @@ const app = express()
 const port = 3000
 import { config } from 'dotenv'
 import cors from'cors';
-import {user} from '../backend/models/users.js'
+
+
 import userRouter from '../backend/routes/auth.js'
 app.use(cors());
 
