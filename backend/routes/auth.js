@@ -4,9 +4,9 @@ import mongoose from 'mongoose';
 const router = express.Router();
 import bcrypt from 'bcrypt';
 
-router.get('/home',(req,res)=>{
+router.get('/',(req,res)=>{
     res.send("Hello World!!");
-
+     
 })
 
 router.post('/signup',(req,res) => {
@@ -36,6 +36,36 @@ router.post('/signup',(req,res) => {
        
         
     })
+    })
+
+    router.post('/signin',(req,res)=>{
+        const {email , password} =req.body;
+        if(!email || !password){
+            return res.status(422).json({
+                error:"Please add email and password"
+            })
+        }
+        user.findOne({ email: email }).then((savedUser)=> {
+            if(!savedUser){
+                return res.status(422).json({
+                    error:"Invalid email"
+                })
+            }
+            bcrypt.compare(password,savedUser.password).then((match)=>{
+                if(match){
+                    return res.status(200).json({
+                        message:"Signed in Successfully"
+                    })
+                }
+                    else{
+                        return res.status(422).json({
+                            error:"Invalid Password"
+                        })
+                    }
+                
+            })
+            .catch(err=> console.log(err))
+        })
     })
    
 
