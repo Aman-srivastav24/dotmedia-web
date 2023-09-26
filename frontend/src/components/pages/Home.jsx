@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../Footer'
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 function Home() {
   return (
@@ -8,10 +9,11 @@ function Home() {
         <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
         <p className='text-[14px]'>aman_srivastavv <span className='text-gray-500' >&#183; 1d</span></p>
       </div>
-      <div className='flex  text-white justify-center border-[.1px] w-[50%] h-[70%] rounded-lg'>
+      <div className='flex  text-white justify-center md:border-[.1px]  md:w-[50%] w-[95%] mt-2 h-[70%] rounded-lg'>
         <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
       </div>
-      <div className='w-[50%] flex flex-col  h-[150px] '>
+      {/* comment */}
+      <div className='w-[95%] md:w-[50%] flex flex-col  h-[150px] '>
         <div className='flex gap-3  px-2 mt-2'>
           <span className="material-symbols-outlined text-white">
             favorite
@@ -36,7 +38,9 @@ function Home() {
       </div>
         </div>
         <br />
+        <Footer/>
       </div>
+      
       )
 }
 
