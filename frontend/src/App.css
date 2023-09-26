@@ -1,8 +1,12 @@
 #root {
-  max-width: 1280px;
-
-
+ 
+ 
   text-align: center;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black; /* You can customize the background color here */
 }
 
 .logo {

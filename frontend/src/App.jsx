@@ -9,6 +9,7 @@ import SignUp from './components/pages/SignUp'
 import SignIn from './components/pages/SignIn'
 import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import Profile from './components/pages/Profile'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
      <Route path='/home' element={<Home/>}></Route>
      <Route path='/signup' element={<SignUp/>}></Route>
      <Route path='/signin' element={<SignIn/>}></Route>
+     <Route path='/profile' element={<Profile/>}></Route>
    </Routes>
    <ToastContainer theme='dark'/>
  </div>
