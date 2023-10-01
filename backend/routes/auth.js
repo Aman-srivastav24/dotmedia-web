@@ -11,10 +11,6 @@ config({
  })
 
 const jwt_Secret = process.env.jwt_secrets;
-router.get('/createPost',requirelogin,(req,res)=>{
-    console.log("Hello World");
-     
-})
 
 router.post('/signup',(req,res) => {
     const {name , userName , email , password} = req.body;

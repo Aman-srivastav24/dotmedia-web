@@ -2,17 +2,14 @@ import mongoose from "mongoose";
 import { ObjectId } from "mongoose";
 import { user } from "./users.js";
 const postSchema = new mongoose.Schema({
-    title:{
+   
+    body:{
         type:String,
         required: true
     },
-    body:{
-        type:String,
-        required: true,
-    },
     photo:{
     type:String,
-    default:"No Photo"
+    required:true
     },
     postedBy:{
         type:ObjectId,

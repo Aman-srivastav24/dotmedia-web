@@ -19,10 +19,12 @@ function SignIn() {
       .then((response) => {
         console.log(response.data)
         notifySuccess(response.data.message);
+        
+        localStorage.setItem("jwt",response.data);
         navigate("/home");
       })
       .catch((error) => {
-          console.error(error.response.error)
+          console.log(error.response.error)
        notifyError(error.response.data.error)
       });
   }
