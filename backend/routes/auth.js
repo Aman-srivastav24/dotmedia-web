@@ -3,9 +3,16 @@ import {user} from '../models/users.js'
 import mongoose from 'mongoose';
 const router = express.Router();
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { config } from 'dotenv';
+import requirelogin from '../middlewares/requirelogin.js'
+config({
+    path:"../backend/config.env"
+ })
 
-router.get('/',(req,res)=>{
-    res.send("Hello World!!");
+const jwt_Secret = process.env.jwt_secrets;
+router.get('/createPost',requirelogin,(req,res)=>{
+    console.log("Hello World");
      
 })
 
@@ -53,10 +60,13 @@ router.post('/signup',(req,res) => {
             }
             bcrypt.compare(password,savedUser.password).then((match)=>{
                 if(match){
-                    return res.status(200).json({
-                        message:"Signed in Successfully"
-                    })
-                }
+                    // return res.status(200).json({
+                    //     message:"Signed in Successfully"
+                    // })
+                    const token = jwt.sign({_id:savedUser.id},jwt_Secret)
+                   res.json(token)
+                    console.log(token);          
+                      }
                     else{
                         return res.status(422).json({
                             error:"Invalid Password"
