@@ -22,9 +22,12 @@ const requirelogin = (req, res, next) => {
         }
         const {_id} = payload
         user.findById(_id).then(userData =>{
-            console.log(userData)
+            req.user = userData
+            next();
+
         })
+
     })
-    next();
+   
 }
 export default requirelogin;

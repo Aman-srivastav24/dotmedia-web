@@ -6,6 +6,7 @@ import cors from'cors';
 
 
 import userRouter from '../backend/routes/auth.js'
+import createPostRouter from '../backend/routes/createPost.js'
 app.use(cors());
 
 
@@ -16,7 +17,7 @@ const mongoURI = process.env.MONGO_URI;
 
 import mongoose from 'mongoose';
 app.use(express.json())
-app.use(userRouter)
+app.use(userRouter,createPostRouter)
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on("connected",()=>{
    console.log("Succesfully connected to Mongo")
