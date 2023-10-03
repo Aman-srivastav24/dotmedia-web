@@ -21,24 +21,30 @@ function Home() {
 
   }}
 ).then((res)=>{
-  setData(res);
+  setData(res.data);
+  console.log(res.data)
 }).catch((err)=>{
   console.log(err)
 })
   }, [])
   
   return (
-    <div className='flex flex-col justify-center items-center w-screen h-screen
+    <div className='flex flex-col justify-center items-center
     bg-black mt-4'>
-      <div className='flex text-white w-[335px] md:w-[680px] h-[60px]  items-center gap-2'>
+      {data.map((posts)=>{
+        return(
+          <>
+           <div className='flex flex-col justify-center items-center w-screen h-screen
+    bg-black mt-4'>
+          <div className='flex text-white w-[335px] md:w-[680px] h-[60px]  items-center gap-2'>
         <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
-        <p className='text-[14px]'>aman_srivastavv <span className='text-gray-500' >&#183; 1d</span></p>
+        <p className='text-[14px]'>{posts.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p>
       </div>
-      <div className='flex  text-white justify-center md:border-[.1px]  md:w-[50%] w-[95%] mt-2 h-[70%] rounded-lg'>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
+      <div className='flex  text-white justify-center md:border-[.1px]  w-[335px] md:w-[680px] mt-2 h-[70%] rounded-lg'>
+        <img src={posts.photo} className='' alt="" srcset="" />
       </div>
       {/* comment */}
-      <div className='w-[95%] md:w-[50%] flex flex-col  h-[150px] '>
+      <div className='w-[335px] md:w-[680px] flex flex-col  h-[150px] '>
         <div className='flex gap-3  px-2 mt-2'>
           <span className="material-symbols-outlined text-white">
             favorite
@@ -53,8 +59,8 @@ function Home() {
         </div>
       <div className='text-white flex flex-col text-[12px]  mt-2'>
         <span className='flex px-2'>2334 likes</span>
-        <p className='flex px-2 font-bold'>aman_srivastavv </p>
-        <span className='flex px-2'>All the stress goes away when i light the cigrate!!</span>
+        <p className='flex px-2 font-bold'>{posts.postedBy.userName}</p>
+        <span className='flex px-2'>{posts.body}</span>
         <p className='flex px-2 text-gray-400'>Show all comments</p>
         <p className='flex justify-between px-2'>
         <input type="text" placeholder="Add a comment..." class="flex  focus:outline-none bg-black"/>
@@ -62,6 +68,13 @@ function Home() {
         </p>
       </div>
         </div>
+        </div>
+         
+          </>
+        )
+      })}
+    
+      
         <br />
         <Footer/>
       </div>

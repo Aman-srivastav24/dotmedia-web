@@ -6,7 +6,7 @@ import { post } from '../models/post.js'
 import requirelogin from '../middlewares/requirelogin.js';
 //route
 router.get("/allposts",requirelogin, (req, res) => {
-    post.find().populate("postedBy","_id name").then(posts => res.json(posts)).catch(err => console.log(err))
+    post.find().populate("postedBy","_id name userName").then(posts => res.json(posts)).catch(err => console.log(err))
 })
 router.post("/createPost", requirelogin, (req, res) => {
     const { body, pic } = req.body;
