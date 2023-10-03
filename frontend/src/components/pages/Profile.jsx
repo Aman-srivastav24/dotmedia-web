@@ -1,6 +1,20 @@
-import React from 'react'
-
+import React,{useState,useEffect} from 'react'
+import axios from 'axios'
 function Profile() {
+  const [pic , setPic] = useState([])
+  useEffect(() => {
+    axios.get("http://localhost:3000/myposts",{
+      headers:{
+        "Authorization": "Bearer" + localStorage.getItem("jwt")
+    
+      }}).then((res)=>{
+        // setPic(res)
+        setPic(res.data);
+        console.log(pic)
+
+      })
+     }, [])
+  
   return (
    <div >
     <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
@@ -28,27 +42,18 @@ function Profile() {
    <hr className="my-4 opacity-[30%]" />
     {/* posts */}
     <div className='flex justify-center'>
-    <div className='flex p-5 gap-2 flex-wrap items-center justify-center md:w-[60%] '>
-        <div className='w-[30%] border-[.1px] '>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
+    <div className='flex p-2 gap-2 flex-wrap items-center justify-center md:w-[700px] w-[390px] '>
+
+    {pic.map((pics)=>{
+        return(
+          <div className='md:w-[200px] md:h-[230px] 
+          w-[110px] h-[140px] flex
+          border-[.1px] '>
+        <img className='w-[100%]' src={pics.photo}></img>
         </div>
-       
-        <div className='w-[30%] border-[.1px]'>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
-        </div>
-       
-        <div className='w-[30%] border-[.1px]'>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
-        </div>
-       
-        <div className='w-[30%] border-[.1px] '>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
-        </div>
-       
-        <div className='w-[30%] border-[.1px] '>
-        <img src="https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_1280.jpg" alt="" srcset="" />
-        </div>
-       
+        )
+       })}
+        
         
     </div>
     </div>
