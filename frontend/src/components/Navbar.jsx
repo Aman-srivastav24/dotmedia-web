@@ -1,10 +1,12 @@
-import React from 'react'
+import React ,{useContext}from 'react'
 import logo from '../assets/dotmedia.png';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import LoginContext from '../context/LoginContext';
 
 
 
 function Navbar({login}) {
+  const {setModalOpen} = useContext(LoginContext)
   const loginStatus =() =>{
     const token = localStorage.getItem("jwt");
     if(login || token){
@@ -12,6 +14,9 @@ function Navbar({login}) {
         <>
       <Link to='/profile'>
       <h3 className='hover:scale-110 cursor-pointer'>Me</h3>
+      </Link>
+      <Link to='#'>
+      <h3 className='hover:scale-110 cursor-pointer' onClick={()=>setModalOpen(true)}>Logout</h3>
       </Link>
       </>
       ]
