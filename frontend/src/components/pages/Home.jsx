@@ -1,7 +1,17 @@
-import React from 'react'
+import React ,{useEffect}from 'react'
 import Footer from '../Footer'
+import { useNavigate } from 'react-router-dom'
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 function Home() {
+  const navigate = useNavigate();
+  useEffect(() => {
+   const token = localStorage.getItem("jwt");
+   if(!token){
+     navigate("/signup")
+   }
+ 
+  }, [])
+  
   return (
     <div className='flex flex-col justify-center items-center w-screen h-screen
     bg-black mt-4'>
