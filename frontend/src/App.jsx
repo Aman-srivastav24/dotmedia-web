@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React , { useState , createContext} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -11,16 +11,17 @@ import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import Profile from './components/pages/Profile'
 import CreatePost from './components/pages/CreatePost'
-
+import LoginContext from './context/LoginContext'
 function App() {
   const [count, setCount] = useState(0)
+  const [userLogin , setUserLogin] = useState(false)
 
   return (
   <BrowserRouter>
     
  <div className='App'>
-
-   <Navbar/>
+<LoginContext.Provider value={{setUserLogin}}>
+<Navbar login={userLogin}/>
    <Routes>
      <Route path='/home' element={<Home/>}></Route>
      <Route path='/signup' element={<SignUp/>}></Route>
@@ -29,6 +30,8 @@ function App() {
      <Route path='/createpost' element={<CreatePost/>}></Route>
    </Routes>
    <ToastContainer theme='dark'/>
+</LoginContext.Provider>
+   
  </div>
  </BrowserRouter>
   )

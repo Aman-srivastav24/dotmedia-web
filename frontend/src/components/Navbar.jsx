@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom'
 
 
 
-function Navbar() {
+function Navbar({login}) {
   const loginStatus =() =>{
     const token = localStorage.getItem("jwt");
-    if(token){
+    if(login || token){
       return[
         <>
       <Link to='/profile'>

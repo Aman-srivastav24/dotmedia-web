@@ -1,9 +1,11 @@
-import React ,{useEffect,useState} from 'react'
+import React ,{useEffect,useState,useContext} from 'react'
 import logo from '../../assets/dotmediab.png';
 import {Link,useNavigate} from 'react-router-dom'
 import axios from'axios';
 import {toast } from 'react-toastify';
+import LoginContext from '../../context/LoginContext';
 function SignIn() {
+  const {setUserLogin} = useContext(LoginContext)
   const navigate = useNavigate();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
@@ -21,11 +23,12 @@ function SignIn() {
         notifySuccess(response.data.message);
         
         localStorage.setItem("jwt",response.data);
+        setUserLogin(true);
         navigate("/home");
       })
       .catch((error) => {
-          console.log(error.response.error)
-       notifyError(error.response.data.error)
+        console.error(error)
+        notifyError(error.response.data.error)
       });
   }
   return (

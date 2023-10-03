@@ -1,15 +1,30 @@
-import React ,{useEffect}from 'react'
+import React ,{useEffect,useState}from 'react'
 import Footer from '../Footer'
+import axios from'axios';
 import { useNavigate } from 'react-router-dom'
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 function Home() {
   const navigate = useNavigate();
+  const [data , setData] = useState([])
   useEffect(() => {
    const token = localStorage.getItem("jwt");
    if(!token){
      navigate("/signup")
    }
- 
+  //fetching all posts
+
+  axios.get("http://localhost:3000/allposts",{
+  headers:{
+    
+
+    "Authorization": "Bearer" + localStorage.getItem("jwt")
+
+  }}
+).then((res)=>{
+  setData(res);
+}).catch((err)=>{
+  console.log(err)
+})
   }, [])
   
   return (
