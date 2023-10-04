@@ -2,7 +2,8 @@ import React ,{useEffect,useState}from 'react'
 import Footer from '../Footer'
 import axios from'axios';
 import { useNavigate } from 'react-router-dom'
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+import { FaHeart } from 'react-icons/fa';
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 function Home() {
   const navigate = useNavigate();
   const [data , setData] = useState([])
@@ -11,24 +12,53 @@ function Home() {
    if(!token){
      navigate("/signup")
    }
-  //fetching all posts
+   
+   //fetching all posts
 
-  axios.get("http://localhost:3000/allposts",{
-  headers:{
+   axios.get("http://localhost:3000/allposts",{
+   headers:{
     
 
     "Authorization": "Bearer" + localStorage.getItem("jwt")
 
-  }}
-).then((res)=>{
-  setData(res.data);
-  console.log(res.data)
-}).catch((err)=>{
-  console.log(err)
-})
-  }, [])
+   }}
+    ).then((res)=>{
+    setData(res.data);
+    console.log(res.data)
+    }).catch((err)=>{
+   console.log(err)
+    })
+    }, [])
   
-  return (
+
+   //like post
+   const likePost =(id)=>{
+    axios.put("http://localhost:3000/like",{
+      postId:id
+    },{method:"put",
+    headers:
+    {
+      "Content-Type":"application/json",
+      "Authorization": "Bearer" + localStorage.getItem("jwt")
+   },
+  }).then((res)=>{
+    console.log(res);
+  })}
+  //unlike
+   const unlikePost =(id)=>{
+    axios.put("http://localhost:3000/unlike",{
+      postId:id
+    },{method:"put",
+    headers:
+    {
+      "Content-Type":"application/json",
+      "Authorization": "Bearer" + localStorage.getItem("jwt")
+   },
+  }).then((res)=>{
+    console.log(res);
+  })}
+
+   return (
     <div className='flex flex-col justify-center items-center
     bg-black mt-4'>
       {data.map((posts)=>{
@@ -46,9 +76,10 @@ function Home() {
       {/* comment */}
       <div className='w-[335px] md:w-[680px] flex flex-col  h-[150px] '>
         <div className='flex gap-3  px-2 mt-2'>
-          <span className="material-symbols-outlined text-white">
+          <span className="material-symbols-outlined text-white cursor-pointer  hover:text-red-500 hover:scale-110" onClick={()=>likePost(posts._id)}>
             favorite
           </span>
+          <FaHeart color="red" size={22} onClick={()=>unlikePost(posts._id)} />
           <span className="material-symbols-outlined text-white">
             chat_bubble
           </span>

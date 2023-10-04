@@ -33,4 +33,45 @@ router.get("/myposts",requirelogin,(req,res)=>{
     })
 })
 
+//like section route
+
+router.put("/like",requirelogin,async(req,res)=>{
+   try {const updatelike=await post.findByIdAndUpdate(req.body.postId,{
+        $push:{likes:req.user._id }
+    },{
+        new:true
+    })
+        if(!updatelike){
+            return res.status(422).json("network error") 
+            
+        } else {
+            
+            res.json(updatelike); 
+        }
+   }
+   catch (error){
+    console.error(error);
+    return res.status(500).json({error:'Internal server error'})
+   }
+    })
+router.put("/unlike",requirelogin,async(req,res)=>{
+   try {const updatelike=await post.findByIdAndUpdate(req.body.postId,{
+        $pull:{likes:req.user._id }
+    },{
+        new:true
+    })
+        if(!updatelike){
+            return res.status(422).json("Network error") 
+            
+        } else {
+            
+            res.json(updatelike); 
+        }
+   }
+   catch (error){
+    console.error(error);
+    return res.status(500).json({error:'Internal server error'})
+   }
+    })
+
 export default router;
