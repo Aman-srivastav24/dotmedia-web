@@ -74,16 +74,17 @@ router.put("/unlike",requirelogin,async(req,res)=>{
    }
     })
 router.put("/comments",requirelogin,async(req,res)=>{
-    const comment = {
-    comment : req.body.text,
-    postedBy:req.user._id
-    }
+ 
    try {
+    const comment = {
+        comment : req.body.text,
+        postedBy:req.user._id
+        }
     const updateComment=await post.findByIdAndUpdate(req.body.postId,{
-        $pull:{comments:comment}
+        $push:{comments:comment}
     },{
         new:true
-    })
+    }).populate("comments.postedBy" , "_id name")
         if(!updateComment){
             return res.status(422).json("Network error") 
             

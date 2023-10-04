@@ -7,6 +7,7 @@ import { FaHeart } from 'react-icons/fa';
 function Home() {
   const navigate = useNavigate();
   const [data , setData] = useState([])
+  const [comment , setComment] = useState("")
   useEffect(() => {
    const token = localStorage.getItem("jwt");
    if(!token){
@@ -75,7 +76,24 @@ function Home() {
     setData(newData)
     console.log(newData);
   })}
+    // function for comment
 
+    const makeComment = (text,id)=>{
+      axios.put("http://localhost:3000/comments",{
+        text: text,
+      postId:id,
+    },{method:"put",
+    headers:
+    {
+      "Content-Type":"application/json",
+      "Authorization": "Bearer" + localStorage.getItem("jwt")
+   },
+  }).then((res)=>{
+     console.log(comment)
+  
+    console.log(res);
+  }
+    )}
    return (
     <div className='flex flex-col justify-center items-center
     bg-black mt-4'>
@@ -113,10 +131,13 @@ function Home() {
         <span className='flex px-2'>{posts.likes.length} likes</span>
         <p className='flex px-2 font-bold'>{posts.postedBy.userName}</p>
         <span className='flex px-2'>{posts.body}</span>
+        {/* comment section */}
         <p className='flex px-2 text-gray-400'>Show all comments</p>
         <p className='flex justify-between px-2'>
-        <input type="text" placeholder="Add a comment..." class="flex  focus:outline-none bg-black"/>
-        <button className='text-blue-300 font-bold'>Post</button>
+
+        <input type="text" placeholder="Add a comment..." value={comment} onChange={(e)=>{setComment(e.target.value)}}  className="flex  focus:outline-none bg-black"/>
+
+        <button className='text-blue-300 font-bold hover:scale-110' onClick={()=>{makeComment(comment,posts._id)}} >Post</button>
         </p>
       </div>
         </div>
