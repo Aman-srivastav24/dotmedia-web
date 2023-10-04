@@ -42,6 +42,16 @@ function Home() {
       "Authorization": "Bearer" + localStorage.getItem("jwt")
    },
   }).then((res)=>{
+     
+    const newData  = data.map((posts)=>{
+      if(posts._id === res.data._id){
+        return res.data
+      }else{
+        return posts
+      }
+    })
+    console.log(newData)
+    setData(newData)
     console.log(res);
   })}
   //unlike
@@ -55,7 +65,15 @@ function Home() {
       "Authorization": "Bearer" + localStorage.getItem("jwt")
    },
   }).then((res)=>{
-    console.log(res);
+    const newData  = data.map((posts)=>{
+      if(posts._id === res.data._id){
+        return res.data
+      }else{
+        return posts
+      }
+    })
+    setData(newData)
+    console.log(newData);
   })}
 
    return (
@@ -76,10 +94,13 @@ function Home() {
       {/* comment */}
       <div className='w-[335px] md:w-[680px] flex flex-col  h-[150px] '>
         <div className='flex gap-3  px-2 mt-2'>
-          <span className="material-symbols-outlined text-white cursor-pointer  hover:text-red-500 hover:scale-110" onClick={()=>likePost(posts._id)}>
-            favorite
-          </span>
-          <FaHeart color="red" size={22} onClick={()=>unlikePost(posts._id)} />
+          {posts.likes.includes(JSON.parse(localStorage.getItem("user"))._id)?(
+            <FaHeart color="red" size={22} onClick={()=>unlikePost(posts._id)} />
+          ):<span className="material-symbols-outlined text-white cursor-pointer  hover:text-red-500 hover:scale-110" onClick={()=>likePost(posts._id)}>
+          favorite
+        </span>}
+          
+          
           <span className="material-symbols-outlined text-white">
             chat_bubble
           </span>
@@ -89,7 +110,7 @@ function Home() {
 
         </div>
       <div className='text-white flex flex-col text-[12px]  mt-2'>
-        <span className='flex px-2'>2334 likes</span>
+        <span className='flex px-2'>{posts.likes.length} likes</span>
         <p className='flex px-2 font-bold'>{posts.postedBy.userName}</p>
         <span className='flex px-2'>{posts.body}</span>
         <p className='flex px-2 text-gray-400'>Show all comments</p>

@@ -22,7 +22,8 @@ function SignIn() {
         console.log(response.data)
         notifySuccess(response.data.message);
         
-        localStorage.setItem("jwt",response.data);
+        localStorage.setItem("jwt",response.data.token);
+        localStorage.setItem("user",JSON.stringify(response.data.user));
         setUserLogin(true);
         navigate("/home");
       })

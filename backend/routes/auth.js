@@ -60,7 +60,8 @@ router.post('/signup',(req,res) => {
                     //     message:"Signed in Successfully"
                     // })
                     const token = jwt.sign({_id:savedUser.id},jwt_Secret)
-                   res.json(token)
+                    const {_id,name,email,userName} = savedUser
+                   res.json({token,user:{_id,name,email,userName}})
                     console.log(token);          
                       }
                     else{

@@ -21,7 +21,7 @@ function Profile() {
         <div className=' items-center flex flex-col'>
         <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full' />
           {/* username */}
-    <p className='text-white flex'>aman_srivastavv</p>
+    <p className='text-white flex'>{JSON.parse(localStorage.getItem("user")).userName}</p>
     </div>
         {/* bio */}
 <div className='flex gap-8 md:flex-row flex-col w-[50%] md:justify-between '>
