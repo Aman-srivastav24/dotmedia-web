@@ -73,5 +73,29 @@ router.put("/unlike",requirelogin,async(req,res)=>{
     return res.status(500).json({error:'Internal server error'})
    }
     })
+router.put("/comments",requirelogin,async(req,res)=>{
+    const comment = {
+    comment : req.body.text,
+    postedBy:req.user._id
+    }
+   try {
+    const updateComment=await post.findByIdAndUpdate(req.body.postId,{
+        $pull:{comments:comment}
+    },{
+        new:true
+    })
+        if(!updateComment){
+            return res.status(422).json("Network error") 
+            
+        } else {
+            
+            res.json(updateComment); 
+        }
+   }
+   catch (error){
+    console.error(error);
+    return res.status(500).json({error:'Internal server error'})
+   }
+    })
 
 export default router;
