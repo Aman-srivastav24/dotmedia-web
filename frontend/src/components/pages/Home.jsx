@@ -10,6 +10,17 @@ function Home() {
   const navigate = useNavigate();
   const [data, setData] = useState([])
   const [comment, setComment] = useState("")
+  const [showComment , setshowComment] = useState(false);
+
+  // view all comment sectionfunction
+  const toggleShowComment = ()=>{
+    if(showComment){
+      setshowComment(false);
+    }else{
+      setshowComment(true);
+    }
+
+  }
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
@@ -141,7 +152,9 @@ function Home() {
                   <p className='flex px-2 font-bold'>{posts.postedBy.userName}</p>
                   <span className='flex px-2'>{posts.body}</span>
                   {/* comment section */}
-                  <p className='flex px-2 text-gray-400 cursor-pointer hover:text-gray-200'>Show all comments</p>
+                  <p className='flex px-2 text-gray-400 cursor-pointer hover:text-gray-200' onClick={()=>{
+                    toggleShowComment()
+                  }}>Show all comments</p>
                   <p className='flex justify-between px-2'>
 
                     <input type="text" placeholder="Add a comment..." value={comment} onChange={(e) => { setComment(e.target.value) }} className="flex  focus:outline-none bg-black" />
@@ -156,55 +169,61 @@ function Home() {
         )
       })}
       {/* Show Comments */}
-      
-      <div className='fixed z-10 inset-0 overflow-y-auto hidden'>
-      <div className="flex items-center justify-center min-h-screen  border-2">
-        <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
-          <div className="modal-header flex flex-col justify-between items-center">
-            <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
-                <p className='text-[19px]'>nidhi<span className='text-gray-500' >&#183; 1d</span></p>
-              </h2>
-            <button
-             
-              className="text-gray-400 hover:text-gray-500  text-[30px] focus:outline-none absolute top-[12%] right-[2%]"
-            >
-              &#215;
-            </button>
-            <div className='w-[380px] md:w-[420px] mb-4'>
-              <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" alt="" srcset="" />
-              <div className='flex flex-col'>
-              <span className='text-[15px]'>102 likes</span>
+      { showComment && <div className='fixed z-10 inset-0 overflow-y-auto block'>
+          <div className="flex items-center justify-center min-h-screen  border-2">
+            <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
+              <div className="modal-header flex flex-col justify-between items-center">
+                <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+                    <p className='text-[19px]'>nidhi<span className='text-gray-500' >&#183; 1d</span></p>
+                  </h2>
+                  {showComment &&  <button
                  
-                 <span className='caption text-[16px] text-gray-500 max-h-20 overflow-y-auto'>Ld tenetur accusamus, ex necessitatibus maiores, ad sunt odio nemo dolores consequuntur adipisci laborum omnis alias.</span>
-                 </div>
+                 className="text-gray-300 hover:text-gray-500  text-[40px] focus:outline-none absolute top-[12%] right-[2%]"
+                   onClick={()=>{
+                     toggleShowComment()
+                   }}
+               >
+                 &#215;
+               </button>}
+               
+                <div className='w-[380px] md:w-[420px] mb-4'>
+                  <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" alt="" srcset="" />
+                  <div className='flex flex-col'>
+                  <span className='text-[15px]'>102 likes</span>
+                     
+                     <span className='caption text-[16px] text-gray-500 max-h-20 overflow-y-auto'>Ld tenetur accusamus, ex necessitatibus maiores, ad sunt odio nemo dolores consequuntur adipisci laborum omnis alias.</span>
+                     </div>
+                </div>
+              </div>
+              <div >
+                <div className="comments max-h-40 overflow-y-auto gap-4 flex flex-col">
+                  <p className='flex gap-2'>
+                    <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" className='w-[40px] rounded-full h-[40px]'  alt="" />
+                    <span className='font-bold mt-2'>aman_srivastav</span>
+                    <span className='mt-2'>Nice shot , Lorem t.</span>
+                  </p>
+                  
+    
+                </div>
+              </div>
+              <div className="modal-footer text-center py-2 border-t">
+              <p className='flex justify-between px-2'>
+                  <input
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => { setComment(e.target.value) }}
+                    className="flex  focus:outline-none "
+                  />
+                  <button className='text-blue-500 font-bold hover:scale-110 hover:text-blue-700' onClick={() => { makeComment(comment, posts._id) }} >Post</button>
+                </p>
+              </div>
             </div>
-          </div>
-          <div >
-            <div className="comments max-h-40 overflow-y-auto gap-4 flex flex-col">
-              <p className='flex gap-2'>
-                <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" className='w-[40px] rounded-full h-[40px]'  alt="" />
-                <span className='font-bold mt-2'>aman_srivastav</span>
-                <span className='mt-2'>Nice shot , Lorem t.</span>
-              </p>
-              
-
-            </div>
-          </div>
-          <div className="modal-footer text-center py-2 border-t">
-          <p className='flex justify-between px-2'>
-              <input
-                type="text"
-                placeholder="Add a comment..."
-                value={comment}
-                onChange={(e) => { setComment(e.target.value) }}
-                className="flex  focus:outline-none "
-              />
-              <button className='text-blue-500 font-bold hover:scale-110 hover:text-blue-700' onClick={() => { makeComment(comment, posts._id) }} >Post</button>
-            </p>
           </div>
         </div>
-      </div>
-    </div>
+          
+      }
+    
       <br />
       <Footer />
     </div>
