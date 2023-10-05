@@ -100,4 +100,28 @@ router.put("/comments",requirelogin,async(req,res)=>{
    }
     })
 
+
+    //Api to del Post
+    router.delete("/delete/:postId",requirelogin,async(req,res)=>{
+        try {
+           
+
+            const delPost = await post.findOne({_id: req.params.postId}).populate("postedBy" , "_id");
+            if(!delPost){
+                return res.status(404).json({error:"Post not found"})
+            }
+            if(delPost.postedBy._id.toString()===req.user._id.toString()){
+                delPost.deleteOne().then(result =>{
+            return res.json({message:"Successfully Deleted"})
+                }).catch((err)=>{
+                console.log(err)
+                })
+                
+            }else{
+                console.log("Network Error")
+            }
+        } catch (error) {
+                console.log(error)
+        }
+    })
 export default router;
