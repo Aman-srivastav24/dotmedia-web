@@ -25,8 +25,8 @@ router.post("/createPost", requirelogin, (req, res) => {
 })
 
 router.get("/myposts",requirelogin,(req,res)=>{
-    post.find({postedBy: req.user._id}).
-    populate("postedBy" ,"_id name").then(myposts=>{
+    post.find({postedBy: req.user._id}).populate("comments.postedBy" , "_id userName").
+    populate("postedBy" ,"_id userName name").then(myposts=>{
         res.json(myposts);
     }).catch(err=>{
         console.log(err)

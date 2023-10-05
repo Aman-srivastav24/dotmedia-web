@@ -1,7 +1,19 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
+import Postdetail from './Postdetail'
 function Profile() {
-  const [pic , setPic] = useState([])
+  const [pic , setPic] = useState([]);
+  const [showdetail , setshowdetail] = useState(false)
+  const [posts , setposts] = useState([]);
+  const toggleDetail = (posts) => {
+    if (showdetail) {
+      setshowdetail(false);
+    } else {
+      setshowdetail(true);
+      setposts(posts)
+    }
+
+  }
   useEffect(() => {
     axios.get("http://localhost:3000/myposts",{
       headers:{
@@ -49,7 +61,9 @@ function Profile() {
           <div className='md:w-[200px] md:h-[230px] 
           w-[110px] h-[140px] flex
           border-[.1px] '>
-        <img className='w-[100%]' src={pics.photo}></img>
+        <img className='w-[100%]' src={pics.photo} onClick={()=>{
+          toggleDetail(pics)
+        }}></img>
         </div>
         )
        })}
@@ -57,6 +71,8 @@ function Profile() {
          
     </div>
     </div>
+    {showdetail &&  <Postdetail commentItem={posts} detail={showdetail} toggleDetail={toggleDetail}/> }
+   
    </div>
   )
 }
