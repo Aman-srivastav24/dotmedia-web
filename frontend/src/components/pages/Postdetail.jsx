@@ -1,6 +1,25 @@
 import React from 'react'
 import { AiOutlineDelete } from 'react-icons/ai';
+import axios from 'axios';
 function Postdetail({commentItem,toggleDetail}) {
+
+  const removePost = (postId)=>{
+    console.log(postId)
+    axios.delete(`http://localhost:3000/delete/${postId}`,{
+      headers:{
+        "Authorization": "Bearer" + localStorage.getItem("jwt")
+    
+      }})
+  .then((response) => {
+    // Handle the successful response
+    console.log('Deleted successfully:', response.data);
+  })
+  .catch((error) => {
+    // Handle any errors
+    console.error('Error:', error);
+  });
+
+  }
   return (
     <div className='fixed z-10 inset-0 overflow-y-auto block'>
         <div className="flex items-center justify-center min-h-screen  border-2">
@@ -8,7 +27,7 @@ function Postdetail({commentItem,toggleDetail}) {
             <div className="modal-header flex flex-col justify-between items-center">
               <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p> 
-                <AiOutlineDelete className='absolute right-[5%] hover:scale-110 hover:text-red-500'/> 
+                <AiOutlineDelete onClick={()=>{removePost(commentItem._id)}} className='absolute right-[5%] hover:scale-110 hover:text-red-500'/> 
               </h2>
             <button
 
