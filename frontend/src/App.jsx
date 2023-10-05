@@ -13,6 +13,7 @@ import Profile from './components/pages/Profile'
 import CreatePost from './components/pages/CreatePost'
 import LoginContext from './context/LoginContext'
 import Modal from './components/Modal'
+import UserProfile from './components/pages/UserProfile'
 function App() {
   const [count, setCount] = useState(0)
   const [userLogin , setUserLogin] = useState(false)
@@ -29,7 +30,8 @@ function App() {
      <Route path='/signup' element={<SignUp/>}></Route>
      <Route path='/' element={<SignUp/>}></Route>
      <Route path='/signin' element={<SignIn/>}></Route>
-     <Route path='/profile' element={<Profile/>}></Route>
+     <Route exact path='/profile' element={<Profile/>}></Route>
+     <Route path='/profile/:id' element={<UserProfile/>}></Route>
      <Route path='/createpost' element={<CreatePost/>}></Route>
    </Routes>
    <ToastContainer theme='dark'/>
