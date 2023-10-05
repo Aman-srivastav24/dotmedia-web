@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa';
 import { MdCancelPresentation } from 'react-icons/md';
-
+import { Link } from 'react-router-dom';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 function Home() {
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ function Home() {
       console.log(newData);
     })
   }
-  // function for comment
+  // function for comment==
 
   const makeComment = (text, id) => {
     axios.put("http://localhost:3000/comments", {
@@ -134,7 +134,11 @@ function Home() {
              bg-black mt-4'>
               <div className='flex text-white w-[335px] md:w-[680px] h-[60px]  items-center gap-2'>
                 <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
-                <p className='text-[14px]'>{posts.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p>
+                <p className='text-[14px]'>
+                  <Link to={`/profile/${posts.postedBy._id}`}>
+                  {posts.postedBy.userName}
+                  </Link>
+                  <span className='text-gray-500' >&#183; 1d</span></p>
               </div>
               <div className='flex  text-white justify-center md:border-[.1px]  w-[335px] md:w-[680px] mt-2 h-[70%] rounded-lg'>
                 <img src={posts.photo} className='' alt="" srcset="" />

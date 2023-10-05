@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-import Postdetail from './Postdetail'
+import Postdetail from './Postdetail';
+import { useParams } from 'react-router-dom';
 function UserProfile() {
-  const [pic , setPic] = useState([]);
-  const [showdetail , setshowdetail] = useState(false)
+  const [user , setuser] = useState("");
   const [posts , setposts] = useState([]);
+  const {userid} = useParams()
 //   const toggleDetail = (posts) => {
 //     if (showdetail) {
 //       setshowdetail(false);
@@ -14,18 +15,19 @@ function UserProfile() {
 //     }
 
 //   }
-//   useEffect(() => {
-//     axios.get("http://localhost:3000/myposts",{
-//       headers:{
-//         "Authorization": "Bearer" + localStorage.getItem("jwt")
+  useEffect(() => {
+    axios.get(`http://localhost:3000/user/${userid}`,{
+      headers:{
+        "Authorization": "Bearer" + localStorage.getItem("jwt")
     
-//       }}).then((res)=>{
-//         // setPic(res)
-//         setPic(res.data);
-//         console.log(pic)
+      }}).then((res)=>{
+        // setPic(res)
+        console.log(res);
+        setuser(res.data.user);
+        setposts(res.data.post)
 
-//       })
-//      }, [])
+      })
+     }, [])
   
   return (
    <div >
@@ -33,7 +35,7 @@ function UserProfile() {
         <div className=' items-center flex flex-col'>
         <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full' />
           {/* username */}
-    <p className='text-white flex'>{JSON.parse(localStorage.getItem("user")).userName}</p>
+    <p className='text-white flex'>{user.userName}</p>
     </div>
         {/* bio */}
 <div className='flex gap-8 md:flex-row flex-col w-[50%] md:justify-between '>
@@ -46,7 +48,7 @@ function UserProfile() {
     <hr className="my-4 opacity-[30%]" />
  
    <div className='flex px-5 gap-8 justify-evenly '>
-    <p className='text-white opacity-[60%]'>2 Posts</p>
+    <p className='text-white opacity-[60%]'>{posts.length} Posts</p>
     <p className='text-white opacity-[60%]'>200 followers</p>
     <p className='text-white opacity-[60%]'>23 following</p>
    </div>
@@ -56,12 +58,12 @@ function UserProfile() {
     <div className='flex justify-center'>
     <div className='flex p-2 gap-2 flex-wrap items-center justify-center md:w-[700px] w-[390px] '>
 
-    {pic.map((pics)=>{
+    {posts.map((post)=>{
         return(
           <div className='md:w-[200px] md:h-[230px] 
           w-[110px] h-[140px] flex
           border-[.1px] '>
-        <img className='w-[100%]' src={pics.photo} 
+        <img className='w-[100%]' src={post.photo} 
         
         //   onClick={()=>{
         //   toggleDetail(pics)

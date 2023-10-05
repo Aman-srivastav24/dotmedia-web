@@ -31,7 +31,7 @@ function App() {
      <Route path='/' element={<SignUp/>}></Route>
      <Route path='/signin' element={<SignIn/>}></Route>
      <Route exact path='/profile' element={<Profile/>}></Route>
-     <Route path='/profile/:id' element={<UserProfile/>}></Route>
+     <Route path='/profile/:userid' element={<UserProfile/>}></Route>
      <Route path='/createpost' element={<CreatePost/>}></Route>
    </Routes>
    <ToastContainer theme='dark'/>
