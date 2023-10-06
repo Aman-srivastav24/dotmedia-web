@@ -12,6 +12,9 @@ function Navbar({login}) {
     if(login || token){
       return[
         <>
+         <Link to='/followingPost'>
+      <h3 className='hover:scale-110 cursor-pointer'>Following's Post</h3>
+      </Link>
       <Link to='/profile'>
       <h3 className='hover:scale-110 cursor-pointer'>Me</h3>
       </Link>
