@@ -27,37 +27,49 @@ import requirelogin from '../middlewares/requirelogin.js';
 
  //to follow user
 
- router.put("/follow",requirelogin,(req,res)=>{
-      user.findByIdAndUpdate(req.body.followId,{
-        $push:{followers: req.user._id}
-      },(err,result)=>{
-        if(err){
-          return res.status(422).json({error:err})
-        }
-        user.findByIdAndUpdate(req.user._id,{
-          $pull:{followings: req.body.followId}
-        },{
-          new:true
-        }).then(result => res.json(result))
-        .catch(err => {return res.status(422).json({error:err})})
-      })
- })
+ router.put("/follow", requirelogin, async (req, res) => {
+  try {
+    // Update the user being followed by adding the follower's ID
+    await user.findByIdAndUpdate(req.body.followId, {
+      $push: { followers: req.user._id },
+    });
+
+    // Update the current user's "followings" by removing the target user's ID
+    const updatedUser = await user.findByIdAndUpdate(
+      req.user._id,
+      {
+        $push: { followings: req.body.followId },
+      },
+      { new: true }
+    );
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(422).json({ error: error.message });
+  }
+});
 
  //unfollow user
 
- router.put("/unfollow",requirelogin,(req,res)=>{
-  user.findByIdAndUpdate(req.body.followId,{
-    $pull:{followers: req.user._id}
-  },(err,result)=>{
-    if(err){
-      return res.status(422).json({error:err})
-    }
-    user.findByIdAndUpdate(req.user._id,{
-      $pull:{followings: req.body.followId}
-    },{
-      new:true
-    }).then(result => res.json(result))
-    .catch(err => {return res.status(422).json({error:err})})
-  })
-})
+ router.put("/unfollow", requirelogin, async (req, res) => {
+  try {
+    // Update the user being followed by adding the follower's ID
+    await user.findByIdAndUpdate(req.body.followId, {
+      $pull: { followers: req.user._id },
+    });
+
+    // Update the current user's "followings" by removing the target user's ID
+    const updatedUser = await user.findByIdAndUpdate(
+      req.user._id,
+      {
+        $pull: { followings: req.body.followId },
+      },
+      { new: true }
+    );
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(422).json({ error: error.message });
+  }
+});
 export default router;
