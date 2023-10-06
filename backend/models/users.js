@@ -18,6 +18,9 @@ password:{
     type:String,
     required:true
 },
+Photo:{
+    type:String,
+},
 followers:[{type:ObjectId , ref:"user"}],
 followings :[{type:ObjectId , ref:"user"}],
 
