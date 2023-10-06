@@ -32,14 +32,20 @@ function UserProfile() {
   return (
    <div >
     <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
-        <div className=' items-center flex flex-col'>
+        <div className=' items-center flex gap-2'>
         <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full' />
           {/* username */}
+          <div className='flex items-center justify-between w-[250px] '>
     <p className='text-white flex'>{user.userName}</p>
+    <span className='text-white  border-[.1px] px-3 py-1 rounded-md hover:bg-[#fa5757] hover:text-black  cursor-pointer hover:scale-110 shadow-md'>follow</span>
+    </div>
     </div>
         {/* bio */}
-<div className='flex gap-8 md:flex-row flex-col w-[50%] md:justify-between '>
-        <p className='text-white'><span 
+<div className='flex gap-8 md:flex-row flex-col w-[50%] md:justify-between  '>
+
+        <p className='text-white'>
+      
+          <span 
         
         className='text-gray-500'>Thought : </span>Here We Go</p>
         <p className='text-white border-[.1px] p-1 rounded-md hover:bg-white hover:text-black  cursor-pointer'>Edit Thought</p>
