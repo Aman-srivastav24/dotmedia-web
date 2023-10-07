@@ -1,10 +1,11 @@
 import { user } from '../models/users.js'
+
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 
 config({
-    path: "../backend/config.env"
+    path: "../config.env"
 })
 
 const jwt_Secret = process.env.jwt_secrets;
