@@ -72,4 +72,22 @@ import requirelogin from '../middlewares/requirelogin.js';
     res.status(422).json({ error: error.message });
   }
 });
+
+// to upload Profile Pic
+try{
+router.put("uploadProfilePic" , requirelogin ,async(req,res) =>{
+  const uploadpicUrl= await user.findByIdAndUpdate(req.user._id,{
+    $set:{Photo:req.body.pic}
+  },
+  {
+    new:true
+  })
+
+  if(uploadpicUrl){
+    res.json(uploadpicUrl)
+  }
+  
+})}catch(error){
+    return res.status(422).json({error:error.message})
+}
 export default router;

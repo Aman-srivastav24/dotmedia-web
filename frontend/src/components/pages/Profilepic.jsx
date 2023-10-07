@@ -43,7 +43,7 @@ function Profilepic({changeProfilePic}) {
       }).catch((err)=>{
         console.log(err.response);
       })
-    }
+    
       }
     const uploadHandleClick = ()=>{
         hiddenFileInput.current.click();
