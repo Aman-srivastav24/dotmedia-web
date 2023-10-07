@@ -41,8 +41,8 @@ function Profilepic({changeProfilePic}) {
 
       }).then((res)=>{
         console.log(res)
-        console.log("in response section")
-        navigate("/home");
+       changeProfilePic();
+       window.location.reload()
         
       }).catch((err)=>{
         console.log("error")

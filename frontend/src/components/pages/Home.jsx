@@ -7,6 +7,7 @@ import { MdCancelPresentation } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 function Home() {
+  var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   const navigate = useNavigate();
   const [data, setData] = useState([])
   const [comment, setComment] = useState("")
@@ -133,7 +134,7 @@ function Home() {
             <div className='flex flex-col justify-center items-center w-screen h-screen
              bg-black mt-4'>
               <div className='flex text-white w-[335px] md:w-[680px] h-[60px]  items-center gap-2'>
-                <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+                <img src={posts.postedBy.Photo?posts.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[14px]'>
                   <Link to={`/profile/${posts.postedBy._id}`}>
                   {posts.postedBy.userName}

@@ -6,6 +6,7 @@ function UserProfile() {
   const [user , setuser] = useState("");
   const [posts , setposts] = useState([]);
   const {userid} = useParams();
+  var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   const [isfollow , setIsfollow] = useState(false)
 //   const toggleDetail = (posts) => {
 //     if (showdetail) {
@@ -76,7 +77,7 @@ const unfollowUser = (userId)=>{
    <div >
     <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
         <div className=' items-center flex gap-2'>
-        <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full' />
+        <img src={user.Photo?user.Photo:picLink} alt=""className='w-[80px] h-[80px] rounded-full' />
           {/* username */}
           <div className='flex items-center justify-between w-[250px] '>
     <p className='text-white flex'>{user.userName}</p>

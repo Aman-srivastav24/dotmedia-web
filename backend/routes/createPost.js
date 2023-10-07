@@ -6,7 +6,7 @@ import { post } from '../models/post.js'
 import requirelogin from '../middlewares/requirelogin.js';
 //route
 router.get("/allposts", requirelogin, (req, res) => {
-    post.find().populate("postedBy", "_id name userName").populate("comments.postedBy", "_id userName").then(posts => res.json(posts)).catch(err => console.log(err))
+    post.find().populate("postedBy", "_id name Photo userName").populate("comments.postedBy", "_id userName").then(posts => res.json(posts)).catch(err => console.log(err))
 })
 router.post("/createPost", requirelogin, (req, res) => {
     const { body, pic } = req.body;
@@ -41,7 +41,7 @@ router.put("/like", requirelogin, async (req, res) => {
             $push: { likes: req.user._id }
         }, {
             new: true
-        }).populate("postedBy", "_id userName name")
+        }).populate("postedBy", "_id userName name Photo")
         if (!updatelike) {
             return res.status(422).json("network error")
 
@@ -61,7 +61,7 @@ router.put("/unlike", requirelogin, async (req, res) => {
             $pull: { likes: req.user._id }
         }, {
             new: true
-        }).populate("postedBy", "_id userName name")
+        }).populate("postedBy", "_id userName name Photo")
         if (!updatelike) {
             return res.status(422).json("Network error")
 
@@ -87,7 +87,7 @@ router.put("/comments", requirelogin, async (req, res) => {
         }, {
             new: true
         }).populate("comments.postedBy", "_id userName")
-            .populate("postedBy", "_id userName")
+            .populate("postedBy", "_id userName Photo")
         if (!updateComment) {
             return res.status(422).json("Network error")
 
