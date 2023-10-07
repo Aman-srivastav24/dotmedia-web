@@ -6,7 +6,8 @@ import { post } from '../models/post.js'
 import requirelogin from '../middlewares/requirelogin.js';
 //route
 router.get("/allposts", requirelogin, (req, res) => {
-    post.find().populate("postedBy", "_id name Photo userName").populate("comments.postedBy", "_id userName").then(posts => res.json(posts)).catch(err => console.log(err))
+    post.find().populate("postedBy", "_id name Photo userName").populate("comments.postedBy", "_id userName").sort("-createdAt")
+    .then(posts => res.json(posts)).catch(err => console.log(err))
 })
 router.post("/createPost", requirelogin, (req, res) => {
     const { body, pic } = req.body;
@@ -26,7 +27,8 @@ router.post("/createPost", requirelogin, (req, res) => {
 
 router.get("/myposts", requirelogin, (req, res) => {
     post.find({ postedBy: req.user._id }).populate("comments.postedBy", "_id userName").
-        populate("postedBy", "_id userName name").then(myposts => {
+        populate("postedBy", "_id userName name").sort("-createdAt")
+        .then(myposts => {
             res.json(myposts);
         }).catch(err => {
             console.log(err)
