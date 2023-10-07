@@ -1,10 +1,12 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import Postdetail from './Postdetail'
+import Profilepic from './Profilepic';
 function Profile() {
   const [pic , setPic] = useState([]);
   const [showdetail , setshowdetail] = useState(false)
   const [posts , setposts] = useState([]);
+  const [changePic , setchangePic] = useState(false);
   const toggleDetail = (posts) => {
     if (showdetail) {
       setshowdetail(false);
@@ -14,6 +16,18 @@ function Profile() {
     }
 
   }
+
+  const changeProfilePic = ()=>{
+    if(changePic){
+      setchangePic(false);
+      console.log("Changr to false disappear")
+    }
+    else {
+      setchangePic(true);
+      console.log("Changr to true disappear")
+    }
+    }
+  
   useEffect(() => {
     axios.get("http://localhost:3000/myposts",{
       headers:{
@@ -31,7 +45,7 @@ function Profile() {
    <div >
     <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
         <div className=' items-center flex flex-col'>
-        <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full' />
+        <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full cursor-pointer' onClick={()=>{changeProfilePic()}} />
           {/* username */}
     <p className='text-white flex'>{JSON.parse(localStorage.getItem("user")).userName}</p>
     </div>
@@ -72,7 +86,7 @@ function Profile() {
     </div>
     </div>
     {showdetail &&  <Postdetail commentItem={posts} detail={showdetail} toggleDetail={toggleDetail}/> }
-   
+   {changePic && <Profilepic changeProfilePic={changeProfilePic}/>}
    </div>
   )
 }
