@@ -11,7 +11,7 @@ app.use(cors());
 
 
 config({
-   path:"../backend/config.env"
+   path:"./config.env"
 })
 const mongoURI = process.env.MONGO_URI;
 
