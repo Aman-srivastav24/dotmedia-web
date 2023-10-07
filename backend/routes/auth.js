@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import requirelogin from '../middlewares/requirelogin.js'
 config({
-    path:"../backend/config.env"
+    path:"./config.env"
  })
 
 const jwt_Secret = process.env.jwt_secrets;
