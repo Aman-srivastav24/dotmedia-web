@@ -2,10 +2,11 @@ import React ,{useContext}from 'react'
 import logo from '../assets/dotmedia.png';
 import {Link} from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function Navbar({login}) {
+  const navigate = useNavigate();
   const {setModalOpen} = useContext(LoginContext)
   const loginStatus =() =>{
     const token = localStorage.getItem("jwt");
@@ -39,7 +40,7 @@ function Navbar({login}) {
 
   return (
     <div className='flex w-screen m:h-[50px] h-[60px] bg-[#fa5757] justify-between items-center shadow-lg shadow-green-700/60 '>
-  <img src={logo} alt="logo "  className=' w-[80px]' />
+  <img src={logo} alt="logo "  className=' w-[80px]' onClick={()=>{navigate("/home")}} />
   <div className='flex p-9 gap-8 text-[18px]'>
     {loginStatus()}
   </div>
