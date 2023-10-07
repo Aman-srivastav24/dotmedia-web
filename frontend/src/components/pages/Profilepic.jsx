@@ -5,9 +5,57 @@ import { useNavigate } from 'react-router-dom';
 
 function Profilepic({changeProfilePic}) {
     const hiddenFileInput = useRef(null);
+    const [image , setImage] = useState("")
+    const [url , setUrl] = useState("");
+    //posting image to cloudnary
+    const postDetail = ()=>{
+       
+        const data =  new FormData()
+        data.append("file",img);
+        data.append("upload_preset","dotmedia");
+        data.append("cloud_name","dotmedia");
+        fetch("https://api.cloudinary.com/v1_1/dotmedia/image/upload",{
+          method:"post",
+          body:data
+        }).then(res=>res.json())
+        .then(data=> setUrl(data.url))
+        .catch(err => console.log(err));
+  
+       
+        
+      }
+
+      const postProfilePic = ()=>{
+        axios.put("http://localhost:3000/uploadProfilePic",     
+      {pic:url},{
+        method:"post",
+        headers:{
+          "Content-Type":"application/json",
+      
+          "Authorization": "Bearer" + localStorage.getItem("jwt")
+
+        }
+
+      }).then((res)=>{
+        console.log(res)
+        navigate("/home");
+        
+      }).catch((err)=>{
+        console.log(err.response);
+      })
+    }
+      }
     const uploadHandleClick = ()=>{
         hiddenFileInput.current.click();
     }
+
+    useEffect(() => {
+     
+   if(image){
+    postDetail();
+   }
+    }, [image])
+    
   const navigate = useNavigate()
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 " >
@@ -24,7 +72,8 @@ function Profilepic({changeProfilePic}) {
         onClick={uploadHandleClick}
           >Upload Photo
           </button>
-          <input type="file" accept='image/*' className='hidden' ref={hiddenFileInput} />
+          <input type="file" accept='image/*' className='hidden' ref={hiddenFileInput} 
+          onChange={(e)=>{setImage(e.target.files[0])}}/>
           <button
           
             className="bg-blue-500 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
