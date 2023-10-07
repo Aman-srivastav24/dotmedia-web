@@ -1,9 +1,13 @@
-
 import React from 'react'
+import { useState , useEffect , useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function Profilepic({changeProfilePic}) {
+    const hiddenFileInput = useRef(null);
+    const uploadHandleClick = ()=>{
+        hiddenFileInput.current.click();
+    }
   const navigate = useNavigate()
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 " >
@@ -17,9 +21,10 @@ function Profilepic({changeProfilePic}) {
           <button
            
             className="bg-red-500 hover:scale-110 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full "
-        
+        onClick={uploadHandleClick}
           >Upload Photo
           </button>
+          <input type="file" accept='image/*' className='hidden' ref={hiddenFileInput} />
           <button
           
             className="bg-blue-500 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
