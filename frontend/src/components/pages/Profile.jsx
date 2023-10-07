@@ -3,9 +3,11 @@ import axios from 'axios'
 import Postdetail from './Postdetail'
 import Profilepic from './Profilepic';
 function Profile() {
+  var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   const [pic , setPic] = useState([]);
   const [showdetail , setshowdetail] = useState(false)
   const [posts , setposts] = useState([]);
+  const [user , setUser] = useState("");
   const [changePic , setchangePic] = useState(false);
   const toggleDetail = (posts) => {
     if (showdetail) {
@@ -29,13 +31,14 @@ function Profile() {
     }
   
   useEffect(() => {
-    axios.get("http://localhost:3000/myposts",{
+    axios.get(`http://localhost:3000/user/${JSON.parse(localStorage.getItem("user"))._id}`,{
       headers:{
         "Authorization": "Bearer" + localStorage.getItem("jwt")
     
       }}).then((res)=>{
         // setPic(res)
-        setPic(res.data);
+        setPic(res.data.post);
+        setUser(res.data.user);
         console.log(pic)
 
       })
@@ -45,7 +48,7 @@ function Profile() {
    <div >
     <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
         <div className=' items-center flex flex-col'>
-        <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" alt=""className='w-[80px] h-[80px] rounded-full cursor-pointer' onClick={()=>{changeProfilePic()}} />
+        <img src={user.Photo?user.Photo:picLink} alt=""className='w-[80px] h-[80px] rounded-full cursor-pointer' onClick={()=>{changeProfilePic()}} />
           {/* username */}
     <p className='text-white flex'>{JSON.parse(localStorage.getItem("user")).userName}</p>
     </div>
@@ -60,9 +63,9 @@ function Profile() {
     <hr className="my-4 opacity-[30%]" />
  
    <div className='flex px-5 gap-8 justify-evenly '>
-    <p className='text-white opacity-[60%]'>2 Posts</p>
-    <p className='text-white opacity-[60%]'>200 followers</p>
-    <p className='text-white opacity-[60%]'>23 following</p>
+    <p className='text-white opacity-[60%]'>{pic?pic.length:"0"} Posts</p>
+    <p className='text-white opacity-[60%]'>{user.followers?user.followers.length:"0"} followers</p>
+    <p className='text-white opacity-[60%]'>{user.followings?user.followings.length:"0"} following</p>
    </div>
     
    <hr className="my-4 opacity-[30%]" />

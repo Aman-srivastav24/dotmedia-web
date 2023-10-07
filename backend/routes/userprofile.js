@@ -75,7 +75,8 @@ import requirelogin from '../middlewares/requirelogin.js';
 
 // to upload Profile Pic
 try{
-router.put("uploadProfilePic" , requirelogin ,async(req,res) =>{
+router.put("/uploadProfilePic" , requirelogin ,async(req,res) =>{
+  console.log("Hihihi im here also")
   const uploadpicUrl= await user.findByIdAndUpdate(req.user._id,{
     $set:{Photo:req.body.pic}
   },
@@ -84,10 +85,11 @@ router.put("uploadProfilePic" , requirelogin ,async(req,res) =>{
   })
 
   if(uploadpicUrl){
+    console.log(uploadpicUrl)
     res.json(uploadpicUrl)
   }
   
 })}catch(error){
-    return res.status(422).json({error:error.message})
+    res.status(422).json({error:error.message})
 }
 export default router;

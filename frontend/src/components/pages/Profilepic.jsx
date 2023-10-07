@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React from 'react'
 import { useState , useEffect , useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+
 
 function Profilepic({changeProfilePic}) {
     const hiddenFileInput = useRef(null);
@@ -11,7 +13,7 @@ function Profilepic({changeProfilePic}) {
     const postDetail = ()=>{
        
         const data =  new FormData()
-        data.append("file",img);
+        data.append("file",image);
         data.append("upload_preset","dotmedia");
         data.append("cloud_name","dotmedia");
         fetch("https://api.cloudinary.com/v1_1/dotmedia/image/upload",{
@@ -26,9 +28,10 @@ function Profilepic({changeProfilePic}) {
       }
 
       const postProfilePic = ()=>{
+        console.log("in postprofilepic finctiom")
         axios.put("http://localhost:3000/uploadProfilePic",     
       {pic:url},{
-        method:"post",
+        method:"put",
         headers:{
           "Content-Type":"application/json",
       
@@ -38,10 +41,12 @@ function Profilepic({changeProfilePic}) {
 
       }).then((res)=>{
         console.log(res)
+        console.log("in response section")
         navigate("/home");
         
       }).catch((err)=>{
-        console.log(err.response);
+        console.log("error")
+        console.log(err);
       })
     
       }
@@ -55,6 +60,14 @@ function Profilepic({changeProfilePic}) {
     postDetail();
    }
     }, [image])
+
+    useEffect(()=>{
+        console.log("Yes, Im here 22")
+        if(url){
+            console.log("yes im here")
+            postProfilePic();
+        }
+    },[url])
     
   const navigate = useNavigate()
   return (
