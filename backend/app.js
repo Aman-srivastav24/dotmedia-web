@@ -31,13 +31,25 @@ const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname,"./frontend/dist")))
 
-app.get("*",(req,res)=>{
-   res.sendFile(
-      path.join(__dirname,"./frontend/dist/index.html"),
-      function (err){
+// app.get("*",(req,res)=>{
+//    res.sendFile(
+//       path.join(__dirname,"./frontend/dist/index.html"),
+//       function (err){
+//          res.status(500).send(err);
+//       }
+//    )
+// })
+
+const frontendDistPath = path.join(__dirname, 'frontend', 'dist');
+app.use(express.static(frontendDistPath));
+
+// Route for serving the index.html file
+app.get('*', (req, res) => {
+   res.sendFile(path.join(frontendDistPath, 'index.html'), (err) => {
+      if (err) {
          res.status(500).send(err);
       }
-   )
+   });
 })
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
