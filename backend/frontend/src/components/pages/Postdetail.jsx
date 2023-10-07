@@ -6,7 +6,7 @@ function Postdetail({commentItem,toggleDetail}) {
   const navigate = useNavigate();
   const removePost = (postId)=>{
     console.log(postId)
-    axios.delete(`http://localhost:3000/delete/${postId}`,{
+    axios.delete(`/delete/${postId}`,{
       headers:{
         "Authorization": "Bearer" + localStorage.getItem("jwt")
     

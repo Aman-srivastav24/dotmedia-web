@@ -31,7 +31,7 @@ function Profile() {
     }
   
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/${JSON.parse(localStorage.getItem("user"))._id}`,{
+    axios.get(`/user/${JSON.parse(localStorage.getItem("user"))._id}`,{
       headers:{
         "Authorization": "Bearer" + localStorage.getItem("jwt")
     

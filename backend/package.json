@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.jsx",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon babel-node app.jsx"
+    "start": "nodemon babel-node app.js"
   },
   "author": "",
   "license": "ISC",

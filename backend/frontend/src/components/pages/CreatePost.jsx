@@ -10,7 +10,7 @@ function CreatePost() {
     const [url , setUrl ] = useState("");
   
     useEffect(() => {
-      axios.post("http://localhost:3000/createPost",     
+      axios.post("/createPost",     
       {body,pic:url},{
         method:"post",
         headers:{
@@ -27,6 +27,7 @@ function CreatePost() {
       })
     }, [url])
     
+    //posting image to cloudnary
     const postDetail = ()=>{
       console.log(body,img);
       const data =  new FormData()

@@ -17,7 +17,7 @@ function SignIn() {
           notifyError("Invalid Email");
           return
       }
-      axios.post('http://localhost:3000/signin', {email:email,password:password},{method:"post",headers:{"Content-Type":"application/json"}})
+      axios.post('/signin', {email:email,password:password},{method:"post",headers:{"Content-Type":"application/json"}})
       .then((response) => {
         console.log(response.data)
         notifySuccess(response.data.message);

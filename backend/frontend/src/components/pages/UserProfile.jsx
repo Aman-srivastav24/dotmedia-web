@@ -20,7 +20,7 @@ function UserProfile() {
 
 //follow user function
 const followUser = (userId)=>{
-  axios.put("http://localhost:3000/follow",
+  axios.put("/follow",
   {
     followId:userId
   },{
@@ -40,7 +40,7 @@ const followUser = (userId)=>{
 // unfollow user
 
 const unfollowUser = (userId)=>{
-  axios.put("http://localhost:3000/unfollow",{
+  axios.put("/unfollow",{
     followId:userId
   },{
     headers:{
@@ -57,7 +57,7 @@ const unfollowUser = (userId)=>{
 }
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/${userid}`,{
+    axios.get(`/user/${userid}`,{
       headers:{
         "Authorization": "Bearer" + localStorage.getItem("jwt")
     

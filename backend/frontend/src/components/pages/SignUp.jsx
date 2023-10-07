@@ -23,7 +23,7 @@ function SignUp() {
             notifyError("Password Must be between 7 to 15 characters which contain at least one numeric digit and a special character");
             return
         }
-        axios.post('http://localhost:3000/signup', {name:name,email:email,userName:userName,password:password},{method:"post",headers:{"Content-Type":"application/json"}})
+        axios.post('/signup', {name:name,email:email,userName:userName,password:password},{method:"post",headers:{"Content-Type":"application/json"}})
         .then((response) => {
           notifySuccess(response.data.message);
           navigate("/signin");

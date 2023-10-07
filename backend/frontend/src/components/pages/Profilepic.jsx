@@ -29,7 +29,7 @@ function Profilepic({changeProfilePic}) {
 
       const postProfilePic = ()=>{
         console.log("in postprofilepic finctiom")
-        axios.put("http://localhost:3000/uploadProfilePic",     
+        axios.put("/uploadProfilePic",     
       {pic:url},{
         method:"put",
         headers:{
