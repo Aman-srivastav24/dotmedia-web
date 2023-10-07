@@ -4,9 +4,9 @@ const port = process.env.port || 3000;
 import { config } from 'dotenv'
 import cors from'cors';
 import path from 'path'
-import userRouter from '../backend/routes/auth.js';
-import createPostRouter from '../backend/routes/createPost.js'
-import userProfileRouter from '../backend/routes/userprofile.js'
+import userRouter from './routes/auth';
+import createPostRouter from '.routes/createPost.js'
+import userProfileRouter from './routes/userprofile.js'
 app.use(cors());
 
 
