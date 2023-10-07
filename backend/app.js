@@ -7,6 +7,7 @@ import path from 'path'
 import userRouter from './routes/auth.js';
 import createPostRouter from './routes/createPost.js'
 import userProfileRouter from './routes/userprofile.js'
+
 app.use(cors());
 
 
@@ -45,8 +46,10 @@ app.use(express.static(frontendDistPath));
 
 // Route for serving the index.html file
 app.get('*', (req, res) => {
-   res.sendFile(path.join(frontendDistPath, 'index.html'), (err) => {
+   const indexPath = path.join(frontendDistPath, 'index.html');
+   res.sendFile(indexPath, (err) => {
       if (err) {
+         console.error('Error sending file:', err);
          res.status(500).send(err);
       }
    });
