@@ -10,7 +10,7 @@ config({
     path:"./config.env"
  })
 
-const jwt_Secret = process.env.jwt_secrets;
+const jwt_Secret=process.env.jwt_secrets;
 
 router.post('/signup',(req,res) => {
     const {name , userName , email , password} = req.body;
@@ -54,12 +54,16 @@ router.post('/signup',(req,res) => {
                     error:"Invalid email"
                 })
             }
+            
             bcrypt.compare(password,savedUser.password).then((match)=>{
                 if(match){
                     // return res.status(200).json({
                     //     message:"Signed in Successfully"
                     // })
+                    console.log(savedUser.id);
+                    console.log('jwt_Secret:', jwt_Secret);
                     const token = jwt.sign({_id:savedUser.id},jwt_Secret)
+
                     const {_id,name,email,userName,followers,followings} = savedUser
                    res.json({token,user:{_id,name,email,userName,followers,followings}})
                     console.log(token);          

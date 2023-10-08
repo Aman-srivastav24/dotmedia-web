@@ -3,7 +3,7 @@ import logo from '../../assets/dotmediab.png';
 import {Link,useNavigate} from 'react-router-dom'
 import axios from'axios';
 import {toast } from 'react-toastify';
-import LoginContext from '../../context/LoginContext';
+import LoginContext from '../../context/LoginContext.jsx';
 function SignIn() {
   const {setUserLogin} = useContext(LoginContext)
   const navigate = useNavigate();
