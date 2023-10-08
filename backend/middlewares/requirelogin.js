@@ -16,7 +16,7 @@ const requirelogin = (req, res, next) => {
     if (!authorization) {
         return res.status(401).json({ error: "You must logged in" })
     }
-    const token = authorization.replace("Bearer", "").trim();
+    const token = authorization.replace("Bearer","").trim();
     jwt.verify(token, jwt_Secret, (err, payload) => {
         if (err) {
             return res.status(401).json({ error: "You must logged in 2" })
