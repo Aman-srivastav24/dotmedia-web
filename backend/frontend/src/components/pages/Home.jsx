@@ -41,7 +41,7 @@ function Home() {
       }
     }
     ).then((res) => {
-      setData(res.data);
+      setData(res);
       console.log(res.data)
     }).catch((err) => {
       console.log(err)
