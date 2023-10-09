@@ -36,6 +36,7 @@ function CreatePost() {
       data.append("cloud_name","dotmedia");
       fetch("https://api.cloudinary.com/v1_1/dotmedia/image/upload",{
         method:"post",
+        secure:true,
         body:data
       }).then(res=>res.json())
       .then(data=> setUrl(data.url))
