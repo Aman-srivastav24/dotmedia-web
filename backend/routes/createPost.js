@@ -88,7 +88,7 @@ router.put("/comments", requirelogin, async (req, res) => {
             $push: { comments: comment }
         }, {
             new: true
-        }).populate("comments.postedBy", "_id userName")
+        }).populate("comments.postedBy", "_id userName Photo")
             .populate("postedBy", "_id userName Photo")
         if (!updateComment) {
             return res.status(422).json("Network error")

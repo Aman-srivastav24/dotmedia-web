@@ -41,8 +41,8 @@ function Home() {
       }
     }
     ).then((res) => {
-      setData(res);
-      console.log(res)
+      setData(res.data);
+      console.log(res.data)
     }).catch((err) => {
       console.log(err)
     })
@@ -188,7 +188,7 @@ function Home() {
         <div className="flex items-center justify-center min-h-screen  border-2">
           <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
             <div className="modal-header flex flex-col justify-between items-center">
-              <h2 className="text-2xl  flex gap-4 mb-2"><img src={posts.postedBy.Photo?posts.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+              <h2 className="text-2xl  flex gap-4 mb-2"><img src={commentItem.postedBy.Photo?commentItem.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p>
               </h2>
               {showComment && <button
