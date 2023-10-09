@@ -12,7 +12,7 @@ import requirelogin from '../middlewares/requirelogin.js';
         const userDetails = await user.findOne({ _id: req.params.id }).select("-password");
         
         const userPosts = await post.find({ postedBy: req.params.id })
-          .populate("postedBy", "_id")
+          .populate("postedBy", "_id userName name").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
           .exec();
     
         if (!userDetails) {

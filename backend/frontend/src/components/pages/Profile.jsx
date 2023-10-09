@@ -31,14 +31,14 @@ function Profile() {
     }
   
   useEffect(() => {
-    axios.get(`/user/${JSON.parse(localStorage.getItem("user"))._id}`,{
+    axios.get('/myposts',{
       headers:{
         "Authorization": "Bearer" + localStorage.getItem("jwt")
     
       }}).then((res)=>{
         // setPic(res)
-        setPic(res.data.post);
-        setUser(res.data.user);
+        setPic(res.data);
+   
         console.log(pic)
 
       })

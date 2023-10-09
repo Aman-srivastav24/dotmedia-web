@@ -12,7 +12,7 @@ function MyfollowingPost() {
   const [comment, setComment] = useState("")
   const [showComment, setshowComment] = useState(false);
   const [commentItem, setcommentItem] = useState([]);
-
+  var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   // view all comment sectionfunction
   const toggleShowComment = (posts) => {
     if (showComment) {
@@ -133,7 +133,7 @@ function MyfollowingPost() {
             <div className='flex flex-col justify-center items-center w-screen h-screen
              bg-black mt-4'>
               <div className='flex text-white w-[335px] md:w-[680px] h-[60px]  items-center gap-2'>
-                <img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+                <img src={posts.postedBy.Photo?posts.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[14px]'>
                   <Link to={`/profile/${posts.postedBy._id}`}>
                   {posts.postedBy.userName}
@@ -187,7 +187,7 @@ function MyfollowingPost() {
         <div className="flex items-center justify-center min-h-screen  border-2">
           <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
             <div className="modal-header flex flex-col justify-between items-center">
-              <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+              <h2 className="text-2xl  flex gap-4 mb-2"><img src={commentItem.postedBy.Photo?commentItem.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p>
               </h2>
               {showComment && <button
@@ -215,7 +215,7 @@ function MyfollowingPost() {
               return(
                 <>
                <p className='flex gap-2'>
-               <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" className='w-[40px] rounded-full h-[40px]' alt="" />
+               <img src={comment.postedBy.Photo?comment.postedBy.Photo:picLink} className='w-[40px] rounded-full h-[40px]' alt="" />
                <span className='font-bold mt-2'>{comment.postedBy.userName}</span>
                <span className='mt-2 '>{comment.comment}</span>
              </p>

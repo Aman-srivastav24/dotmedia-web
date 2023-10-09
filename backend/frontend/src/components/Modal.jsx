@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
-function Modal({setModalOpen}) {
+function Modal() {
   const {setUserLogin} = useContext(LoginContext)
+  const {setModalOpen} = useContext(LoginContext)
   const navigate = useNavigate()
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 " >

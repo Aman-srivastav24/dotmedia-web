@@ -6,8 +6,8 @@ import { post } from '../models/post.js'
 import requirelogin from '../middlewares/requirelogin.js';
 //route
 router.get("/allposts", requirelogin, (req, res) => {
-    post.find().populate("postedBy", "_id name Photo userName").populate("comments.postedBy", "_id userName").sort("-createdAt")
-    .then(posts => res.json(posts)).catch(err => console.log(err))
+    post.find().populate("postedBy", "_id name Photo userName").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
+        .then(posts => res.json(posts)).catch(err => console.log(err))
 })
 router.post("/createPost", requirelogin, (req, res) => {
     const { body, pic } = req.body;
@@ -26,8 +26,7 @@ router.post("/createPost", requirelogin, (req, res) => {
 })
 
 router.get("/myposts", requirelogin, (req, res) => {
-    post.find({ postedBy: req.user._id }).populate("comments.postedBy", "_id userName").
-        populate("postedBy", "_id userName name").sort("-createdAt")
+    post.find({ postedBy: req.user._id }).populate("postedBy", "_id userName name Photo").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
         .then(myposts => {
             res.json(myposts);
         }).catch(err => {
@@ -131,11 +130,11 @@ router.delete("/delete/:postId", requirelogin, async (req, res) => {
 // to show only following posts
 
 router.get("/myfollowingPost", requirelogin, (req, res) => {
-    post.find({ postedBy: { $in: req.user.followings } }).populate("postedBy", "_id userName name").
-    populate("comments.postedBy", "_id userName name").then(posts => {
-        res.json(posts)
-    }).catch(err => {
-        console.log(err)
-    })
+    post.find({ postedBy: { $in: req.user.followings } }).populate("postedBy", "_id userName name Photo").
+        populate("comments.postedBy", "_id userName name Photo").then(posts => {
+            res.json(posts)
+        }).catch(err => {
+            console.log(err)
+        })
 })
 export default router;

@@ -216,7 +216,7 @@ function Home() {
               return(
                 <>
                <p className='flex gap-2'>
-               <img src={comment.postedBy.Photo} className='w-[40px] rounded-full h-[40px]' alt="" />
+               <img src={comment.postedBy.Photo?comment.postedBy.Photo:picLink} className='w-[40px] rounded-full h-[40px]' alt="" />
                <span className='font-bold mt-2'>{comment.postedBy.userName}</span>
                <span className='mt-2 '>{comment.comment}</span>
              </p>

@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-function Postdetail({commentItem,toggleDetail}) {
+function Postdetail({ toggleDetail , commentItem}) {
   const navigate = useNavigate();
+ 
+ 
+  const [showComment, setshowComment] = useState(false);
+  var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  const toggleShowComment = (posts) => {
+    if (showComment) {
+      setshowComment(false);
+    } else {
+      setshowComment(true);
+      setposts(posts)
+    }
+
+  }
+
   const removePost = (postId)=>{
     console.log(postId)
     axios.delete(`/delete/${postId}`,{
@@ -23,18 +37,45 @@ function Postdetail({commentItem,toggleDetail}) {
   });
 
   }
+  const makeComment = (text, id) => {
+    axios.put("/comments", {
+      text: text,
+      postId: id,
+    }, {
+      method: "put",
+      headers:
+      {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer" + localStorage.getItem("jwt")
+      },
+    }).then((res) => {
+      const newData = data.map((posts) => {
+        if (posts._id === res.data._id) {
+          return res.data
+        } else {
+          return posts
+        }
+      })
+      setData(newData)
+
+      setComment("")
+      console.log(res);
+      console.log(newData);
+    }
+    )
+  }
   return (
     <div className='fixed z-10 inset-0 overflow-y-auto block'>
         <div className="flex items-center justify-center min-h-screen  border-2">
-          <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
+          <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px] relative p-4">
             <div className="modal-header flex flex-col justify-between items-center">
-              <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+              <h2 className="text-2xl  flex gap-4 mb-2"><img src={commentItem.postedBy.Photo?commentItem.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p> 
                 <AiOutlineDelete onClick={()=>{removePost(commentItem._id)}} className='absolute right-[5%] hover:scale-110 hover:text-red-500 text-[30px]'/> 
               </h2>
             <button
 
-                className="text-gray-300 hover:text-gray-500  text-[40px] focus:outline-none absolute top-[5%] left-[5.5%]"
+                className="text-gray-300 hover:text-gray-500  text-[40px] focus:outline-none absolute left-[5%] top[-3%]"
                 onClick={() => {
                   toggleDetail()
                 }}
@@ -57,7 +98,7 @@ function Postdetail({commentItem,toggleDetail}) {
               return(
                 <>
                <p className='flex gap-2'>
-               <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" className='w-[40px] rounded-full h-[40px]' alt="" />
+               <img src={comment.postedBy.Photo?comment.postedBy.Photo:picLink}className='w-[40px] rounded-full h-[40px]' alt="" />
                <span className='font-bold mt-2'>{comment.postedBy.userName}</span>
                <span className='mt-2 '>{comment.comment}</span>
              </p>
@@ -71,21 +112,7 @@ function Postdetail({commentItem,toggleDetail}) {
 
               </div>
             </div>
-            <div className="modal-footer text-center py-2 border-t">
-              <p className='flex justify-between px-2'>
-                <input
-                  type="text"
-                  placeholder="Add a comment..."
-                  // value={comment}
-                  // onChange={(e) => { setComment(e.target.value) }}
-                  className="flex  focus:outline-none "
-                />
-                <button className='text-blue-500 font-bold hover:scale-110 hover:text-blue-700' 
-                // onClick={() => { makeComment(comment, commentItem._id);
-                // toggleShowComment() }}
-                >Post</button>
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>
