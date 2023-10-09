@@ -188,7 +188,7 @@ function Home() {
         <div className="flex items-center justify-center min-h-screen  border-2">
           <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px]  p-4">
             <div className="modal-header flex flex-col justify-between items-center">
-              <h2 className="text-2xl  flex gap-4 mb-2"><img src="https://cdn.pixabay.com/photo/2019/05/04/15/24/woman-4178302_1280.jpg" className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
+              <h2 className="text-2xl  flex gap-4 mb-2"><img src={posts.postedBy.Photo?posts.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p>
               </h2>
               {showComment && <button
@@ -216,7 +216,7 @@ function Home() {
               return(
                 <>
                <p className='flex gap-2'>
-               <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_640.jpg" className='w-[40px] rounded-full h-[40px]' alt="" />
+               <img src={comment.postedBy.Photo} className='w-[40px] rounded-full h-[40px]' alt="" />
                <span className='font-bold mt-2'>{comment.postedBy.userName}</span>
                <span className='mt-2 '>{comment.comment}</span>
              </p>
