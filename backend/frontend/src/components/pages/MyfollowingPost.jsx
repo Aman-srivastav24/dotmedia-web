@@ -249,7 +249,7 @@ function MyfollowingPost() {
       }
 
       <br />
-      <Footer />
+    
     </div>
 
   )
