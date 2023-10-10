@@ -26,9 +26,10 @@ router.post("/createPost", requirelogin, (req, res) => {
 })
 
 router.get("/myposts", requirelogin, (req, res) => {
-    post.find({ postedBy: req.user._id }).populate("postedBy", "_id userName name Photo").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
+    post.find({ postedBy: req.user._id }).populate("postedBy", "_id userName name Photo thought followers followings").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
         .then(myposts => {
             res.json(myposts);
+            console.log(myposts)
         }).catch(err => {
             console.log(err)
         })

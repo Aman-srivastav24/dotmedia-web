@@ -12,7 +12,7 @@ import requirelogin from '../middlewares/requirelogin.js';
         const userDetails = await user.findOne({ _id: req.params.id }).select("-password");
         
         const userPosts = await post.find({ postedBy: req.params.id })
-          .populate("postedBy", "_id userName name").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
+          .populate("postedBy", "_id userName name followers followings thought").populate("comments.postedBy", "_id userName Photo").sort("-createdAt")
           .exec();
     
         if (!userDetails) {
@@ -87,6 +87,27 @@ router.put("/uploadProfilePic" , requirelogin ,async(req,res) =>{
   if(uploadpicUrl){
     console.log(uploadpicUrl)
     res.json(uploadpicUrl)
+  }
+  
+})}catch(error){
+    res.status(422).json({error:error.message})
+}
+try{
+router.put("/editThought" , requirelogin ,async(req,res) =>{
+  console.log("Hihihi im here also")
+  console.log(req.body.userthought)
+  const updatethought= await user.findByIdAndUpdate(req.user._id,{
+    $set:{thought:req.body.userthought}
+  },
+  {
+    new:true
+  })
+
+  if(updatethought){
+    console.log(updatethought)
+    res.json(updatethought)
+  }else{
+    console.log("not getting")
   }
   
 })}catch(error){

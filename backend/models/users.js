@@ -21,6 +21,9 @@ password:{
 Photo:{
     type:String,
 },
+thought:{
+    type:String,
+},
 followers:[{type:ObjectId , ref:"user"}],
 followings :[{type:ObjectId , ref:"user"}],
 

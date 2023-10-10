@@ -95,8 +95,8 @@ const unfollowUser = (userId)=>{
       
           <span 
         
-        className='text-gray-500'>Thought : </span>Here We Go</p>
-        <p className='text-white border-[.1px] p-1 rounded-md hover:bg-white hover:text-black  cursor-pointer'>Edit Thought</p>
+        className='text-gray-500'>Thought : </span>{user.thought?user.thought:":)"}</p>
+      
         </div>
     </header>
     <hr className="my-4 opacity-[30%]" />
