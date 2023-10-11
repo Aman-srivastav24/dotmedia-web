@@ -67,7 +67,7 @@ function Postdetail({ toggleDetail , commentItem}) {
   return (
     <div className='fixed z-10 inset-0 overflow-y-auto block'>
         <div className="flex items-center justify-center min-h-screen  border-2">
-          <div className="bg-white rounded-lg shadow-md md:w-[780px] w-[380px] relative p-4">
+          <div className="bg-white rounded-lg shadow-md md:w-[740px] w-[350px] relative p-4">
             <div className="modal-header flex flex-col justify-between items-center">
               <h2 className="text-2xl  flex gap-4 mb-2"><img src={commentItem.postedBy.Photo?commentItem.postedBy.Photo:picLink} className='rounded-full w-[40px] h-[40px] ' alt="" srcset="" />
                 <p className='text-[19px]'>{commentItem.postedBy.userName}<span className='text-gray-500' >&#183; 1d</span></p> 
@@ -83,8 +83,8 @@ function Postdetail({ toggleDetail , commentItem}) {
                 &#215;
               </button>
 
-              <div className='w-[380px] md:w-[420px] mb-4'>
-                <img src={commentItem.photo} alt="" srcset="" />
+              <div className='flex flex-col w-[350px] md:w-[420px] mb-4'>
+                <img src={commentItem.photo} alt="" srcset="" className=''/>
                 <div className='flex flex-col'>
                   <span className='text-[15px]'>{commentItem.likes.length} likes</span>
 

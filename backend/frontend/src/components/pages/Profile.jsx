@@ -3,6 +3,7 @@ import axios from 'axios'
 import Postdetail from './Postdetail'
 import Profilepic from './Profilepic';
 import EditThought from './EditThought';
+import { FiEdit3 } from 'react-icons/fi';
 function Profile() {
   var picLink = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   const [pic, setPic] = useState([]);
@@ -59,20 +60,20 @@ function Profile() {
 
   return (
     <div >
-      <header className='flex justify-between items-center p-2  w-[100%] h-[150px]'>
+      <header className='flex items-center p-2  w-[100%] h-[150px] mt-2'>
         <div className=' items-center flex flex-col'>
-          <img src={user.Photo?user.Photo:picLink} alt="" className='w-[80px] h-[80px] rounded-full cursor-pointer' onClick={() => { changeProfilePic() }} />
+          <img src={user.Photo?user.Photo:picLink} alt="" className='md:w-[80px] md:h-[80px] w-[50px] h-[50px] rounded-full cursor-pointer' onClick={() => { changeProfilePic() }} />
           {/* username */}
           <p className='text-white flex'>{JSON.parse(localStorage.getItem("user")).userName}</p>
         </div>
         {/* bio */}
-        <div className='flex gap-8 md:flex-row flex-col w-[50%] md:justify-between '>
-          <p className='text-white'><span
+        <div className='flex flex-col gap-2 w-[50%] ml-[20px] md:ml-[210px] mt-2 items-center'>
+          <p className='text-white text-[15px]'><span
 
             className='text-gray-500'>Thought : </span>{user.thought?user.thought:":)"}</p>
-          <p className='text-white border-[.1px] p-1 rounded-md hover:bg-white hover:text-black  cursor-pointer' onClick={() => {
+          <FiEdit3 className='text-gray-500 hover:scale-110 text-[20px]' onClick={() => {
             toggleThought()
-          }}>Edit Thought</p>
+          }}/>
         </div>
       </header>
       <hr className="my-4 opacity-[30%]" />

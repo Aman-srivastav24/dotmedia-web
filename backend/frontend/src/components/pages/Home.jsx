@@ -141,8 +141,8 @@ function Home() {
                   </Link>
                   <span className='text-gray-500' >&#183; 1d</span></p>
               </div>
-              <div className='flex  text-white justify-center md:border-[.1px]  w-[335px] md:w-[680px] mt-2 h-[70%] rounded-lg'>
-                <img src={posts.photo} className='' alt="" srcset="" />
+              <div className='flex  text-white justify-center md:border-[.1px]  w-[335px] md:w-[680px] px-4 h-[50%] md:h-[70%] rounded-lg'>
+                <img src={posts.photo} className='w-[100%] rounded-lg object-contain ' alt="" srcset="" />
               </div>
               {/* comment */}
               <div className='w-[335px] md:w-[680px] flex flex-col  h-[150px] '>

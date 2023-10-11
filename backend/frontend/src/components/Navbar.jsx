@@ -61,23 +61,23 @@ function Navbar({ login }) {
     if (login || token) {
       return [
         <>
-          <div className='flex w-full m:h-[50px] h-[60px] bg-[#fa5757] justify-between items-center shadow-lg shadow-green-700/60 px-8 fixed bottom-0 left-0 right-0 '>
+          <div className='flex w-full m:h-[50px] h-[60px] bg-[#fa5757] justify-between items-center shadow-lg shadow-green-700/60 px-4 fixed bottom-0 left-0 right-0 '>
             <Link to='/home'>  
-              <FiHome className='text-white text-[30px] hover:scale-110 cursor-pointer icon-tooltip' />
+              <FiHome className='text-white md:text-[30px] text-[20px] hover:scale-110 cursor-pointer icon-tooltip' />
             </Link>
             <Link to='/createpost'>  <h3 className="text-white hover:scale-110 cursor-pointer icon-tooltip">
-              <FiEdit3 className='text-white text-[30px]' />
+              <FiEdit3 className='text-white md:text-[30px] text-[20px]' />
             </h3>
             </Link>
 
             <Link to='/followingPost'>
-              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="My Following Posts"><FiFileText className='text-white text-[30px]' /></h3>
+              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="My Following Posts"><FiFileText className='text-white md:text-[30px] text-[20px]' /></h3>
             </Link>
             <Link to='/profile'>
-              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="Profile"><FiUser className='text-white text-[30px]' /></h3>
+              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="Profile"><FiUser className='text-white md:text-[30px] text-[20px]' /></h3>
             </Link>
             <Link to='#'>
-              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="Logout" onClick={() => setModalOpen(true)}><FiLogOut className='text-white text-[30px]' /></h3>
+              <h3 className='hover:scale-110 cursor-pointer icon-tooltip' data-tooltip="Logout" onClick={() => setModalOpen(true)}><FiLogOut className='text-white md:text-[30px] text-[20px]' /></h3>
             </Link>
           </div>
         </>

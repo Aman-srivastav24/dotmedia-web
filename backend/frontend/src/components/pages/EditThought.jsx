@@ -2,9 +2,15 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 function EditThought({toggleThought }) {
-    const [thought , setThought] = useState("Your Thought Here");
+    const [thought , setThought] = useState("");
     const handleThoughtChange = (event) => {
-      setThought(event.target.value);
+      const inputText = event.target.value;
+      const words = inputText.split('');
+      if(words.length <= 40){
+      setThought(inputText);}
+      else{
+        alert("Thought limit is 40 letters. Please reduce your text.")
+      }
       console.log(thought);
     };
     const saveThought = ()=>{
@@ -19,7 +25,7 @@ function EditThought({toggleThought }) {
           }
   
         }).then((res)=>{
-          console.log(res.data)
+        
          toggleThought();
          window.location.reload()
           
